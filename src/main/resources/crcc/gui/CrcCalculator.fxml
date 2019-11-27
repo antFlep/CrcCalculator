@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="crcc.gui.GuiController"
+          minWidth="800"
+          minHeight="400"
+          hgap="10" vgap="10" >
+
+    <!-- 0rth row -->
+
+    <TableView fx:id="tblCrc"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0"
+               GridPane.columnSpan="3">
+
+        <columns>
+            <TableColumn minWidth="580" text="Path to File">
+                <cellValueFactory>
+                    <PropertyValueFactory property="filePath"/>
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn minWidth="100" text="Status">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status"/>
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn minWidth="100" text="CRC32">
+                <cellValueFactory>
+                    <PropertyValueFactory property="crc32"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+
+        <items>
+            <FXCollections fx:factory="observableArrayList"/>
+        </items>
+
+    </TableView>
+
+    <!-- 1rst row -->
+
+    <Button    fx:id="btnDirectory"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1"
+               maxWidth="Infinity"
+               text="Open Directory"
+               onAction="#openExplorer" />
+
+    <TextField fx:id="txfPath"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="1"
+               maxWidth="Infinity"
+               disable="true"
+               text="/path/to/files" />
+
+    <Button    fx:id="btnLoad"
+               GridPane.columnIndex="2"
+               GridPane.rowIndex="1"
+               maxWidth="Infinity"
+               text="Load Files" />
+
+    <!-- 2rd row -->
+
+    <Button    fx:id="btnCheck"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="2"
+               GridPane.columnSpan="2"
+               maxWidth="Infinity"
+               text="Check CRC"
+               onAction="#checkChecksum" />
+
+    <Button    fx:id="btnAdd"
+               GridPane.columnIndex="2"
+               GridPane.rowIndex="2"
+               GridPane.fillWidth="true"
+               maxWidth="Infinity"
+               text="Add CRC" />
+
+    <!-- 3rd row -->
+
+    <Button    fx:id="btnUnknown"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="3"
+               maxWidth="Infinity"
+               text="Check CRC"
+               onAction="#checkChecksum" />
+
+    <Button    fx:id="btn"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="3"
+               maxWidth="Infinity"
+               text="Add CRC" />
+
+    <Button    fx:id="btnClear"
+               GridPane.columnIndex="2"
+               GridPane.rowIndex="3"
+               GridPane.fillWidth="true"
+               maxWidth="Infinity"
+               text="Add CRC" />
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="140"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="500"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="140"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS"/>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>
