@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.concurrent.Task;
 
 import java.io.File;
 import java.util.List;
@@ -28,22 +29,29 @@ public class GuiController {
 
         ObservableList<ChkFile> data = tblCrc.getItems();
 
-        for (int i = 0; i < files.size(); i++) {
-            File file = files.get(i);
-
+        for (File file : files) {
             data.add(new ChkFile(file));
         }
     }
 
     @FXML private void checkChecksum(ActionEvent e) {
-        txfPath.setText("Pressed some random button");
+        System.out.println("Starting file check");
 
-        ObservableList<ChkFile> data = tblCrc.getItems();
-        IntStream.range(0, data.size()).forEach(i -> {
-            data.get(i).setCrc32();
-            System.out.println("Checksum is: " + data.get(i).getCrc32());
-            tblCrc.refresh();
-        });
+        Task<Void> backgroundCalc = new Task<>() {
+            @Override
+            public Void call() throws Exception {
+                System.out.println("Starting background file checking task");
+                ObservableList<ChkFile> data = tblCrc.getItems();
+                IntStream.range(0, data.size()).forEach(i -> {
+                    data.get(i).setCrc32();
+                    System.out.println("Checksum is: " + data.get(i).getCrc32());
+                    tblCrc.refresh();
+                });
+                return null;
+            }
+        };
+
+        new Thread(backgroundCalc).start();
     }
 
     @FXML private void handleAddCrc(ActionEvent e) {
@@ -51,5 +59,9 @@ public class GuiController {
         ChecksumCalculator.crc32Checksum(null);
     }
 
+    @FXML private void handleClearList(ActionEvent e) {
+        System.out.print("Clearing List");
+        tblCrc.getItems().clear();
+    }
     
 }

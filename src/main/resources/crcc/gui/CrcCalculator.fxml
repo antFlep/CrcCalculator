@@ -107,7 +107,8 @@
                GridPane.rowIndex="3"
                GridPane.fillWidth="true"
                maxWidth="Infinity"
-               text="Add CRC" />
+               text="Clear List"
+               onAction="#handleClearList" />
 
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" minWidth="140"/>
