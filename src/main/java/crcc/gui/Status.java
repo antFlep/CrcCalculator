@@ -1,8 +1,9 @@
 package crcc.gui;
 
 public enum Status {
-    UNCHECKED,
-    ONGOING,
+    BROKEN,
     CHECKED,
-    BROKEN
+    ONGOING,
+    OK,
+    UNCHECKED,
 }

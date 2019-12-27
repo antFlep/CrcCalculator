@@ -55,8 +55,21 @@ public class GuiController {
     }
 
     @FXML private void handleAddCrc(ActionEvent e) {
-        System.out.print("Adding CRC ...");
-        ChecksumCalculator.crc32Checksum(null);
+        System.out.println("Appending CRC to filenames");
+
+        Task<Void> backgroundRename = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ObservableList<ChkFile> data = tblCrc.getItems();
+                IntStream.range(0, data.size()).forEach(i -> {
+                    data.get(i).setFileName();
+                    tblCrc.refresh();
+                });
+                return null;
+            }
+        };
+
+        new Thread(backgroundRename).start();
     }
 
     @FXML private void handleClearList(ActionEvent e) {

@@ -85,7 +85,8 @@
                GridPane.rowIndex="2"
                GridPane.fillWidth="true"
                maxWidth="Infinity"
-               text="Add CRC" />
+               text="Add CRC"
+               onAction="#handleAddCrc"/>
 
     <!-- 3rd row -->
 
